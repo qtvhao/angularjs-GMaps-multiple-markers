@@ -20,7 +20,7 @@
         }
     </style>
 </head>
-<body>
+<body ng-app="myApp">
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
@@ -38,18 +38,40 @@
             center: {lat: -34.397, lng: 150.644},
             zoom: 8
         });
-
-        var image = 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png';
-        var marker = new google.maps.Marker({
-            position: {lat: -34.397, lng: 150.644},
-            map: map,
-            title: 'Hello World!',
-            icon:image
-        });
-        setTimeout(function () {
-            marker.setIcon('https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png');
-        }, 4e3);
     }
+    var app = angular.module('myApp', []);
+    app.controller("myCtrl", function ($scope) {
+        var scope = $scope;
+        scope.locations = [
+            {
+                lat: -34.397,
+                long: 150.644,
+            },
+            {
+                lat: -34.397,
+                long: 150.644,
+            },
+            {
+                lat: -34.397,
+                long: 150.644,
+            },
+            {
+                lat: -34.397,
+                long: 150.644,
+            },
+        ];
+        scope.map = window.map;
+        google.maps.event.addListenerOnce(scope.map, 'idle', function () {
+            for(var i = 0;i<scope.locations.length;i++){
+                scope.locations[i].marker = new google.maps.Marker({
+                    position: {lat: -34.397, lng: 150.644},
+                    map: map,
+                    title: 'Hello World!',
+                    icon: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png'
+                });
+            }
+        });
+    });
 
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=&callback=initMap"
