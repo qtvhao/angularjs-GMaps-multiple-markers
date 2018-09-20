@@ -18,16 +18,22 @@
             margin: 0;
             padding: 0;
         }
+
+        .item {
+            background: #eee;
+            padding: 2em;
+            margin-bottom:3px;
+        }
     </style>
 </head>
 <body>
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <div id="row-id-1"></div>
-            <div id="row-id-2"></div>
-            <div id="row-id-3"></div>
-            <div id="row-id-4"></div>
+            <div id="row-id-1" class="item"></div>
+            <div id="row-id-2" class="item"></div>
+            <div id="row-id-3" class="item"></div>
+            <div id="row-id-4" class="item"></div>
         </div>
         <div class="col-md-6">
             <div id="map"></div>
@@ -38,29 +44,29 @@
     var map;
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 8
+            center: {lat: -30.397, lng: 148.644},
+            zoom: 6
         });
 
         var locations = [
             {
-                lat: -34.397,
-                long: 151.644,
+                lat: -26.397,
+                long: 145.644,
                 domPresent: document.getElementById('row-id-1')
             },
             {
-                lat: -34.397,
-                long: 152.644,
+                lat: -28.397,
+                long: 149.644,
                 domPresent: document.getElementById('row-id-2')
             },
             {
-                lat: -34.397,
-                long: 153.644,
+                lat: -30.397,
+                long: 140.644,
                 domPresent: document.getElementById('row-id-3')
             },
             {
-                lat: -34.397,
-                long: 154.644,
+                lat: -29.397,
+                long: 141.644,
                 domPresent: document.getElementById('row-id-4')
             },
         ];
