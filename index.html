@@ -4,6 +4,7 @@
     <title>Simple Map</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <style>
         /* Always set the map height explicitly to define the size of the div
@@ -23,7 +24,10 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-
+            <div id="row-id-1"></div>
+            <div id="row-id-2"></div>
+            <div id="row-id-3"></div>
+            <div id="row-id-4"></div>
         </div>
         <div class="col-md-6">
             <div id="map"></div>
@@ -42,29 +46,47 @@
             {
                 lat: -34.397,
                 long: 151.644,
+                domPresent: document.getElementById('row-id-1')
             },
             {
                 lat: -34.397,
                 long: 152.644,
+                domPresent: document.getElementById('row-id-2')
             },
             {
                 lat: -34.397,
                 long: 153.644,
+                domPresent: document.getElementById('row-id-3')
             },
             {
                 lat: -34.397,
                 long: 154.644,
+                domPresent: document.getElementById('row-id-4')
             },
         ];
+        for(var i = 0; i<locations.length;i++) {
+            (function (location) {
+                jQuery(location.domPresent)
+                    .html(JSON.stringify(location))
+                    .mouseover(function () {
+                        location.marker.setIcon('https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_green.png');
+                    })
+                    .mouseout(function () {
+                        location.marker.setIcon('https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png');
+                    });
+            })(locations[i]);
+        }
 
         google.maps.event.addListenerOnce(map, 'idle', function () {
             for(var i = 0;i<locations.length;i++) {
-                locations[i].marker = new google.maps.Marker({
-                    position: {lat: -34.397, lng: 150.644},
-                    map: map,
-                    title: 'Hello World!',
-                    icon: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png'
-                });
+                (function (location) {
+                    location.marker = new google.maps.Marker({
+                        position: {lat: location.lat, lng: location.long},
+                        map: map,
+                        title: 'Hello World!',
+                        icon: 'https://raw.githubusercontent.com/Concept211/Google-Maps-Markers/master/images/marker_red.png'
+                    });
+                })(locations[i]);
             }
         });
     }
